@@ -1,0 +1,25 @@
+{
+  "name": "koa-playground",
+  "version": "1.0.0",
+  "description": "Learning KoaJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasbento/koa-playground.git"
+  },
+  "keywords": [
+    "koa"
+  ],
+  "author": "Lucas Bento",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucasbento/koa-playground/issues"
+  },
+  "homepage": "https://github.com/lucasbento/koa-playground#readme",
+  "dependencies": {
+    "koa": "^1.2.0"
+  }
+}
