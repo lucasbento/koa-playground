@@ -1,15 +1,27 @@
 var app = require('koa')();
-// var bodyParser = require('koa-bodyparser');
-// var router = require('koa-router')();
-// var fs = require('fs');
-
-var port = process.argv[2] || 4000;
 
 app
-  // .use(bodyParser())
-  // .use(router.routes())
-  // .use(router.allowedMethods())
-  .use(function* () {
-    this.body = (this.request.is('application/json')) ? { message: 'hi!' } : 'ok';
-  })
-  .listen(port);
+	.use(responseTime())
+	.use(upperCase())
+	.use(function* () {
+		this.body = 'hello koa';
+	})
+	.listen(process.argv[2] || 4000);
+
+function responseTime() {
+	return function* (next) {
+		var start = Date.now();
+
+    yield next;
+
+		this.set('X-Response-Time', Date.now() - start + 'ms');
+	};
+}
+
+function upperCase() {
+	return function* (next) {
+		yield next;
+
+		this.body = this.body.toUpperCase();
+	};
+}
