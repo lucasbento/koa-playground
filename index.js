@@ -1,27 +1,17 @@
 var app = require('koa')();
 
+// app.keys = ['koa', 'secret', 'keys', 'for', 'signed', 'cookies'];
+
 app
-	.use(responseTime())
-	.use(upperCase())
-	.use(function* () {
-		this.body = 'hello koa';
-	})
-	.listen(process.argv[2] || 4000);
+	.use(function* (next) {
+		var view = 
+		(this.cookies.get('view', ['signed'])) ? this.cookies.get('view', ['signed']) : 0;
 
-function responseTime() {
-	return function* (next) {
-		var start = Date.now();
+		view++;
 
-    yield next;
-
-		this.set('X-Response-Time', Date.now() - start + 'ms');
-	};
-}
-
-function upperCase() {
-	return function* (next) {
+		this.cookies.set('view', view, ['signed']);
 		yield next;
 
-		this.body = this.body.toUpperCase();
-	};
-}
+		this.body = view + ' views';
+	})
+	.listen(process.argv[2] || 4000);
