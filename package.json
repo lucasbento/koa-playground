@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/lucasbento/koa-playground#readme",
   "dependencies": {
+    "co-views": "^2.1.0",
+    "ejs": "^2.4.1",
     "koa": "^1.2.0",
     "koa-bodyparser": "^2.0.1",
     "koa-router": "^5.4.0",

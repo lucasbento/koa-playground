@@ -1,14 +1,23 @@
 var app = require('koa')();
-var session = require('koa-session');
+var views = require('co-views');
+
+var render = views(__dirname + '/views', {
+	ext: 'ejs'
+});
 
 app.keys = ['koa', 'secret', 'keys', 'for', 'sessions'];
 
 app
-	.use(session(app))
 	.use(function* (next) {
-		var views = this.session.views || 0;
-		this.session.views = ++views;
+		var user = {
+			name: {
+				first: 'Tobi',
+				last: 'Holowaychuk'
+			},
+			species: 'ferret',
+			age: 3
+		}
 
-		this.body = views + ' views';
+		this.body = yield render('user', { user: user });
 	})
 	.listen(process.argv[2] || 4000);
