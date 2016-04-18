@@ -1,17 +1,14 @@
 var app = require('koa')();
+var session = require('koa-session');
 
-app.keys = ['koa', 'secret', 'keys', 'for', 'signed', 'cookies'];
+app.keys = ['koa', 'secret', 'keys', 'for', 'sessions'];
 
 app
+	.use(session(app))
 	.use(function* (next) {
-		var view = 
-		(this.cookies.get('view', ['signed'])) ? this.cookies.get('view', ['signed']) : 0;
+		var views = this.session.views || 0;
+		this.session.views = ++views;
 
-		view++;
-
-		this.cookies.set('view', view, ['signed']);
-		yield next;
-
-		this.body = view + ' views';
+		this.body = views + ' views';
 	})
 	.listen(process.argv[2] || 4000);
