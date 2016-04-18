@@ -1,6 +1,6 @@
 var app = require('koa')();
 
-// app.keys = ['koa', 'secret', 'keys', 'for', 'signed', 'cookies'];
+app.keys = ['koa', 'secret', 'keys', 'for', 'signed', 'cookies'];
 
 app
 	.use(function* (next) {
